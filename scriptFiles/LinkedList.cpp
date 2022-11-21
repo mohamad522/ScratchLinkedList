@@ -114,3 +114,15 @@ const short LinkedList::operator[](int index) const {
   temp = nullptr;
   return val;
 }
+void LinkedList::push_back(short x) {
+  ListNode *temp = head;
+  for(int i(0); i < size - 1; ++i) {
+    temp = temp->next;
+  }
+  temp->next = new ListNode(x);
+  size++;
+}
+void LinkedList::push_front(short x) {
+  head = new ListNode(x, head);
+  size++;
+}
