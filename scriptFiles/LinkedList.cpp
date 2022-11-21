@@ -94,3 +94,23 @@ bool LinkedList::operator==(const LinkedList &l) {
   }
   return true;
 }
+short &LinkedList::operator[](int index)
+{
+  ListNode *temp = head;
+  for (int i(0); i < index; ++i)
+  {
+    temp = temp->next;
+  }
+  return temp->val;
+}
+
+const short LinkedList::operator[](int index) const {
+  ListNode *temp = head;
+  for(int i(0); i < index; ++i) {
+    temp = temp->next;
+  }
+  short val = temp->val;
+  delete temp;
+  temp = nullptr;
+  return val;
+}
