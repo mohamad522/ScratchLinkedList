@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <memory>
 #include "LinkedList.hpp"
 
 using namespace std;
@@ -9,49 +10,32 @@ LinkedList::LinkedList(const vector<short> &v)
 {
   if (!size)
     return;
-  head = new ListNode(v[0]);
-  ListNode *temp = head;
+  head = make_shared <ListNode> (ListNode(v[0]));
+  shared_ptr<ListNode> temp = head;
   for (int i(1); i < size; ++i)
   {
-    temp->next = new ListNode(v[i]);
+    temp->next = make_shared <ListNode> (ListNode(v[i]));
     temp = temp->next;
   }
-  temp = nullptr;
-  delete temp;
 }
 LinkedList::LinkedList(const LinkedList &l)
     : size(l.size)
 {
   if (!size)
     return;
-  head = new ListNode(l.head->val);
-  ListNode *temp = head;
-  ListNode *ltemp = l.head;
+  head = make_shared <ListNode> (ListNode(l.head->val));
+  shared_ptr<ListNode> temp = head;
+  shared_ptr<ListNode> ltemp = l.head;
   while (ltemp->next)
   {
-    temp->next = new ListNode(ltemp->next->val);
+    temp->next = make_shared <ListNode> (ListNode(ltemp->next->val));
     temp = temp->next;
     ltemp = ltemp->next;
   }
-  temp = nullptr;
-  delete temp;
-  ltemp = nullptr;
-  delete ltemp;
 }
 
-LinkedList::~LinkedList()
-{
-  ListNode *temp = head;
-  ListNode *a;
-  for (int i(0); i < size; ++i)
-  {
-    a = temp->next;
-    delete temp;
-    temp = a;
-  }
-}
 void swap(LinkedList &l1, LinkedList &l2) {
-  LinkedList::ListNode *temp = l1.head;
+  shared_ptr<LinkedList::ListNode> temp = l1.head;
   l1.head = l2.head;
   l2.head = temp;
   int tempS = l1.size;
@@ -69,7 +53,7 @@ ostream & LinkedList::toOstream(ostream &out) const {
     out << "List empty\n";
     return out;
   }
-  LinkedList::ListNode *temp = head;
+  shared_ptr<LinkedList::ListNode> temp = head;
 
   for (int i(0); i < size; ++i)
   {
@@ -84,8 +68,8 @@ ostream &operator<<(ostream &os, const LinkedList &l)
 }
 bool LinkedList::operator==(const LinkedList &l) {
   if(size != l.size) return false;
-  ListNode *temp = head;
-  ListNode *ltemp = l.head;
+  shared_ptr<ListNode> temp = head;
+  shared_ptr<ListNode> ltemp = l.head;
   
   for(int i(0); i < size; ++i) {
     if(temp->val != ltemp->val) return false;
@@ -96,7 +80,7 @@ bool LinkedList::operator==(const LinkedList &l) {
 }
 short &LinkedList::operator[](int index)
 {
-  ListNode *temp = head;
+  shared_ptr<ListNode> temp = head;
   for (int i(0); i < index; ++i)
   {
     temp = temp->next;
@@ -105,24 +89,22 @@ short &LinkedList::operator[](int index)
 }
 
 const short LinkedList::operator[](int index) const {
-  ListNode *temp = head;
+  shared_ptr<ListNode> temp = head;
   for(int i(0); i < index; ++i) {
     temp = temp->next;
   }
   short val = temp->val;
-  delete temp;
-  temp = nullptr;
   return val;
 }
 void LinkedList::push_back(short x) {
-  ListNode *temp = head;
+  shared_ptr<ListNode> temp = head;
   for(int i(0); i < size - 1; ++i) {
     temp = temp->next;
   }
-  temp->next = new ListNode(x);
+  temp->next = make_shared<ListNode> (ListNode(x));
   size++;
 }
 void LinkedList::push_front(short x) {
-  head = new ListNode(x, head);
+  head = make_shared<ListNode> (ListNode(x, head));
   size++;
 }
