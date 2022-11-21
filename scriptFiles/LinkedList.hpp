@@ -18,7 +18,8 @@ public:
   void push_front(short);
   int getSize() const;
   ostream &toOstream(ostream &out) const;
-
+  bool operator==(const LinkedList &);
+  
 
 private:
   struct ListNode
@@ -29,6 +30,6 @@ private:
   };
   ListNode *head;
   int size;
-  friend void swap(ListNode &, ListNode &);
+  friend void swap(LinkedList &, LinkedList &);
   friend ostream& operator<<(ostream& os, const LinkedList&);
 };
