@@ -13,7 +13,7 @@ add_executable(LinkedList main.cpp)
 add_subdirectory(scriptFiles)
 target_link_libraries(LinkedList PUBLIC scriptFiles GTest::gtest_main)
 target_include_directories(LinkedList PUBLIC
-                          "${PROJECT_BINARY_DIR}"
-                          "${PROJECT_SOURCE_DIR}/scriptFiles" )
+ "${PROJECT_BINARY_DIR}"
+ "${PROJECT_SOURCE_DIR}/scriptFiles" )
 include(GoogleTest)
 gtest_discover_tests(LinkedList)

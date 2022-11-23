@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include "LinkedList.hpp"
 
 using namespace std;
@@ -37,6 +38,32 @@ LinkedList::LinkedList(const LinkedList &l)
   delete temp;
   ltemp = nullptr;
   delete ltemp;
+}
+LinkedList::LinkedList(const string &file)
+{
+
+  ifstream indata;
+  int num;           // variable for input value
+  indata.open(file); // opens the file
+  if (!indata)
+  {
+    cerr << "Error: file could not be opened" << endl;
+    exit(1);
+  }
+  indata >> num;
+  head = new ListNode(num);
+  ListNode *temp = head;
+  size = 1;
+  while (!indata.eof())
+  {
+    indata >> num;
+    temp->next = new ListNode(num);
+    temp = temp->next;
+    size++;
+  }
+  temp = nullptr;
+  delete temp;
+  indata.close();
 }
 
 LinkedList::~LinkedList()

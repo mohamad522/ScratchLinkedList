@@ -1,8 +1,10 @@
 #include <iostream>
 #include <vector>
+#include <string>
 
 using std::ostream;
 using std::vector;
+using std::string;
 
 
 class LinkedList
@@ -19,6 +21,7 @@ public:
   int getSize() const;
   ostream &toOstream(ostream &out) const;
   bool operator==(const LinkedList &);
+  LinkedList(const string&);
   
 
 private:
